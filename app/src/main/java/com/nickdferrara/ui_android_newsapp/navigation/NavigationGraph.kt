@@ -15,8 +15,10 @@ fun NavigationGraph(
     navController: NavHostController,
     innerPadding: PaddingValues
 ) {
-    NavHost(navController, startDestination = Screen.Home.route, Modifier.padding(innerPadding)) {
-        composable(Screen.Home.route) { HomeScreen(navController) }
-        composable(Screen.Article.route) { ArticleScreen(navController) }
+    NavHost(navController,
+        startDestination = Screen.Home.route,
+        Modifier.padding(innerPadding)) {
+        composable(Screen.Home.route) { HomeScreen(navController = navController) }
+        composable(Screen.Article.route) { ArticleScreen(navController = navController) }
     }
 }
