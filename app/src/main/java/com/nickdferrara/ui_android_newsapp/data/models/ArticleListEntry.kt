@@ -5,5 +5,6 @@ data class ArticleListEntry(
     val articleSubTitle: String,
     val author: String,
     val articleUrl: String,
-    val articleUri: String
+    val articleUri: String,
+    val articleImage: String
 )

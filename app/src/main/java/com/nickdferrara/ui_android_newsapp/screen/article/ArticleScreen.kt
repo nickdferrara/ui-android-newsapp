@@ -18,20 +18,4 @@ fun ArticleScreen(
     navController: NavController,
     viewModel: ArticleScreenViewModel = hiltViewModel()
 ) {
-
-    val articleList by remember {
-        viewModel.articleList
-    }
-
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LazyColumn() {
-            item {
-                Text(text = "First item")
-            }
-
-    }
-
-    }
 }

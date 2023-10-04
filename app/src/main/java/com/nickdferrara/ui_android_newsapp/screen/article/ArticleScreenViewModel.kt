@@ -12,36 +12,5 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ArticleScreenViewModel @Inject constructor(
-    private val repository: ArticleRepository
 ): ViewModel() {
-
-    var articleList = mutableStateOf<List<ArticleListEntry>>(listOf())
-
-    init {
-        loadTopStories()
-    }
-
-    private fun loadTopStories() {
-        viewModelScope.launch {
-
-            when(val result = repository.getArticleList()) {
-                is Resource.Success -> {
-                    val articles = result.data!!.results.map { entry ->
-                        ArticleListEntry(
-                            articleTitle = entry.title,
-                            articleSubTitle = entry.abstract,
-                            author = entry.byline,
-                            articleUri = entry.uri,
-                            articleUrl = entry.url
-                        )
-                    }
-                    articleList.value += articles
-                }
-
-                is Resource.Error -> {}
-
-                is Resource.Loading -> {}
-            }
-        }
-    }
 }
