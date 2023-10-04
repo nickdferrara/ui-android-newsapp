@@ -5,11 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NewYorkTimesApi {
-    @GET("home.json/api-key=$API_KEY")
-    suspend fun getArticleList(
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
-    ): ArticleList
+    @GET("home.json?api-key=$API_KEY")
+    suspend fun getArticleList(): ArticleList
 
     companion object {
         const val API_KEY = "*"

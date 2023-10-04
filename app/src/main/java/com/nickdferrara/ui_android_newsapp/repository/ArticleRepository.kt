@@ -11,11 +11,11 @@ class ArticleRepository  @Inject constructor(
     private val api: NewYorkTimesApi
 ) {
 
-    suspend fun getArticleList(limit: Int, offset: Int): Resource<ArticleList> {
+    suspend fun getArticleList(): Resource<ArticleList> {
         val response = try {
-            api.getArticleList(limit, offset)
+            api.getArticleList()
         } catch (e: Exception) {
-            return Resource.Error("An unknown error occurred.")
+            return Resource.Error("An unknown error occurred. $e")
         }
         return Resource.Success(response)
     }
