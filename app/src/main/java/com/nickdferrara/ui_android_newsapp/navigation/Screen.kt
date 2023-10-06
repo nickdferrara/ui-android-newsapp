@@ -1,6 +1,17 @@
 package com.nickdferrara.ui_android_newsapp.navigation
 
-sealed class Screen(val route: String, var title: String) {
-    object Home: Screen("home_screen", "Home")
-    object Article: Screen("article_screen", "Article Detail")
+sealed class Screen(
+    val route: String,
+    var title: String
+) {
+
+    object Home: Screen(
+        route = "home_screen",
+        title = "Home"
+    )
+
+    object Article: Screen(
+        route = "article_screen",
+        title = "Article Detail"
+    )
 }

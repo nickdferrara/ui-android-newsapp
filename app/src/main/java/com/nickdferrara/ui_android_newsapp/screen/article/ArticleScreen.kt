@@ -16,6 +16,6 @@ import androidx.navigation.NavController
 @Composable
 fun ArticleScreen(
     navController: NavController,
-    viewModel: ArticleScreenViewModel = hiltViewModel()
+    viewModel: ArticleScreenViewModel = hiltViewModel(),
 ) {
 }

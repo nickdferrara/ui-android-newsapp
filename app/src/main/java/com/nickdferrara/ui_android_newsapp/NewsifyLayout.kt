@@ -2,6 +2,7 @@ package com.nickdferrara.ui_android_newsapp
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,7 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.nickdferrara.ui_android_newsapp.navigation.NavigationGraph
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +33,7 @@ fun NewsifyLayout(
     Scaffold(
         topBar = {
             HomeTopAppBar(
+                navController = navController,
                 topAppBarState = topAppBarState
             )
         },
@@ -44,6 +48,7 @@ fun NewsifyLayout(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopAppBar(
+    navController: NavHostController,
     modifier: Modifier = Modifier,
     topAppBarState: TopAppBarState = rememberTopAppBarState(),
     scrollBehavior: TopAppBarScrollBehavior? =
@@ -58,6 +63,14 @@ fun HomeTopAppBar(
                 overflow = TextOverflow.Ellipsis,
             )
         },
+        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route == "article_screen"){
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "Profile Icon"
+                )
+            }
+        } else null },
         actions = {
             IconButton(onClick = { /* do something */ }) {
                 Icon(

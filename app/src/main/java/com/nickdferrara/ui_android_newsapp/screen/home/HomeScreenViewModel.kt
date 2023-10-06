@@ -32,8 +32,7 @@ class HomeScreenViewModel @Inject constructor(
                             articleSubTitle = entry.abstract,
                             author = entry.byline,
                             articleUri = entry.uri,
-                            articleUrl = entry.url,
-                            articleImage = entry.multimedia[0].url
+                            articleUrl = entry.url
                         )
                     }
                     articleList.value += articles

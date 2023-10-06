@@ -1,5 +1,6 @@
 package com.nickdferrara.ui_android_newsapp.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +44,16 @@ fun HomeScreen(
     ) {
         LazyColumn() {
             items(articleList) {article ->
-                Column(modifier = Modifier.padding(top = 16.dp)) {
+
+                Column(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                        .clickable {
+                            navController.navigate(
+                                route ="article_screen"
+                            )
+                        }
+                ) {
                     Text(
                         text = article.articleTitle,
                         color = Color.Black,
@@ -69,15 +79,15 @@ fun HomeScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    SubcomposeAsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data(article.articleImage)
-                            .crossfade(true)
-                            .build(),
-                        contentDescription = "${article.articleImage} image",
-                        modifier = Modifier
-                           
-                    )
+//                    SubcomposeAsyncImage(
+//                        model = ImageRequest.Builder(LocalContext.current)
+//                            .data(article.articleImage)
+//                            .crossfade(true)
+//                            .build(),
+//                        contentDescription = "${article.articleImage} image",
+//                        modifier = Modifier
+//
+//                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
                 }
