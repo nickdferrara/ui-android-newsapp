@@ -1,5 +1,6 @@
 package com.nickdferrara.ui_android_newsapp
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.ArrowBack
@@ -15,6 +16,8 @@ import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -55,6 +58,7 @@ fun HomeTopAppBar(
         TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState)
 ) {
     CenterAlignedTopAppBar(
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
         title = {
             Text(
                 text = stringResource(id = R.string.app_name),
@@ -63,7 +67,7 @@ fun HomeTopAppBar(
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route == "article_screen"){
+        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route == "article_screen") {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
