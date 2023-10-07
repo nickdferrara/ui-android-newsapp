@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +45,8 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(top = 16.dp)
                         .clickable {
-                            val encodedUrl = URLEncoder.encode(article.articleUrl, StandardCharsets.UTF_8.toString())
+                            val encodedUrl = URLEncoder.encode(article.articleUrl,
+                                StandardCharsets.UTF_8.toString())
                             navController.navigate(
                                 route ="article_screen/${encodedUrl}"
                             )
@@ -51,7 +54,7 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = article.articleTitle,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 26.sp,
                         textAlign = TextAlign.Start,
                         fontWeight = FontWeight.SemiBold,

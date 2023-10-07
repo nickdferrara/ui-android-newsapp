@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nickdferrara.ui_android_newsapp"
-        minSdk = 24
+        minSdk = 31
         //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
@@ -87,6 +87,9 @@ dependencies {
 
     // Coil Compose
     implementation ("io.coil-kt:coil-compose:2.2.2")
+
+    // Splash Screen
+    implementation("androidx.core:core-splashscreen:1.0.0")
 }
 
 kapt {
