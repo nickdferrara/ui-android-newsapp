@@ -12,12 +12,26 @@ import androidx.core.animation.doOnEnd
 import androidx.navigation.compose.rememberNavController
 import com.nickdferrara.ui_android_newsapp.ui.theme.UiandroidnewsappTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Duration
+import java.time.Instant
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        animateSplashScreen()
+        enableEdgeToEdgeScreenLayout()
+
+        setContent {
+            UiandroidnewsappTheme {
+                val navController = rememberNavController()
+                NewsifyLayout(navController = navController)
+            }
+        }
+    }
+
+    private fun animateSplashScreen() {
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             // Create your custom animation.
             val slideUp = ObjectAnimator.ofFloat(
@@ -26,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 0f,
                 -splashScreenView.height.toFloat()
             )
+
             slideUp.interpolator = AnticipateInterpolator()
             slideUp.duration = 200L
 
@@ -35,7 +50,9 @@ class MainActivity : ComponentActivity() {
             // Run your animation.
             slideUp.start()
         }
+    }
 
+    private fun enableEdgeToEdgeScreenLayout() {
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.light(
                 android.graphics.Color.TRANSPARENT,
@@ -46,13 +63,6 @@ class MainActivity : ComponentActivity() {
                 android.graphics.Color.TRANSPARENT
             )
         )
-
-        setContent {
-            UiandroidnewsappTheme {
-                val navController = rememberNavController()
-                NewsifyLayout(navController = navController)
-            }
-        }
     }
 }
 
