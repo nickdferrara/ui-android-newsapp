@@ -22,6 +22,19 @@ fun NavigationGraph(
         startDestination = Screen.Home.route,
         Modifier.padding(innerPadding)) {
         composable(Screen.Home.route) { HomeScreen(navController = navController) }
-        composable(Screen.Article.route) { ArticleScreen(navController = navController)}
+        composable(
+            route = Screen.Article.route,
+            arguments = listOf(
+                navArgument(name = "articleUrl") {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val articleUrl = remember {
+                it.arguments?.getString("articleUrl")
+            }
+
+            ArticleScreen(navController = navController, articleUrl = articleUrl!!)
+        }
     }
 }

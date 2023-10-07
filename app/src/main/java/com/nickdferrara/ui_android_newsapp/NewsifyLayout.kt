@@ -15,13 +15,10 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TopAppBarState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.nickdferrara.ui_android_newsapp.navigation.NavigationGraph
@@ -52,13 +49,11 @@ fun NewsifyLayout(
 @Composable
 fun HomeTopAppBar(
     navController: NavHostController,
-    modifier: Modifier = Modifier,
     topAppBarState: TopAppBarState = rememberTopAppBarState(),
     scrollBehavior: TopAppBarScrollBehavior? =
         TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState)
 ) {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
         title = {
             Text(
                 text = stringResource(id = R.string.app_name),
@@ -67,7 +62,7 @@ fun HomeTopAppBar(
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route == "article_screen") {
+        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route != "Home_screen") {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,

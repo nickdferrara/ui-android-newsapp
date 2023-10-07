@@ -4,14 +4,13 @@ sealed class Screen(
     val route: String,
     var title: String
 ) {
-
     object Home: Screen(
         route = "home_screen",
         title = "Home"
     )
 
     object Article: Screen(
-        route = "article_screen",
+        route = "article_screen/{articleUrl}",
         title = "Article Detail"
     )
 }
