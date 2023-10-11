@@ -1,6 +1,15 @@
 package com.nickdferrara.ui_android_newsapp.screen.home
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nickdferrara.ui_android_newsapp.data.models.ArticleListEntry
@@ -32,17 +41,22 @@ class HomeScreenViewModel @Inject constructor(
                             articleSubTitle = entry.abstract,
                             author = entry.byline,
                             articleUri = entry.uri,
-                            articleUrl = entry.url
+                            articleUrl = entry.url,
+                            articleImage = entry.multimedia[0].url
                         )
                     }
                     articleList.value += articles
                 }
 
                 is Resource.Error -> {}
-
                 is Resource.Loading -> {}
             }
         }
     }
 
+    fun refreshTopStories() {
+        loadTopStories()
+    }
+
 }
+

@@ -13,16 +13,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -35,6 +46,14 @@ fun HomeScreen(
         homeScreenViewModel.articleList
     }
 
+    val lifecycleEvent = rememberLifecycleEvent()
+
+    LaunchedEffect(lifecycleEvent) {
+        if (lifecycleEvent == Lifecycle.Event.ON_RESUME) {
+            homeScreenViewModel.refreshTopStories()
+        }
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -44,10 +63,12 @@ fun HomeScreen(
                     modifier = Modifier
                         .padding(top = 16.dp)
                         .clickable {
-                            val encodedUrl = URLEncoder.encode(article.articleUrl,
-                                StandardCharsets.UTF_8.toString())
+                            val encodedUrl = URLEncoder.encode(
+                                article.articleUrl,
+                                StandardCharsets.UTF_8.toString()
+                            )
                             navController.navigate(
-                                route ="article_screen/${encodedUrl}"
+                                route = "article_screen/${encodedUrl}"
                             )
                         }
                 ) {
@@ -68,17 +89,39 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.height(20.dp))
 
-//                    SubcomposeAsyncImage(
-//                        model = ImageRequest.Builder(LocalContext.current)
-//                            .data(article.articleImage)
-//                            .crossfade(true)
-//                            .build(),
-//                        contentDescription = "${article.articleImage} image",
-//                        modifier = Modifier//
-//                    )
+                    SubcomposeAsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(article.articleImage)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "${article.articleImage} image",
+                        modifier = Modifier//
+                    )
                     Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }
     }
+}
+
+@Composable
+private fun rememberLifecycleEvent(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+): Lifecycle.Event {
+
+    var state by remember {
+        mutableStateOf(Lifecycle.Event.ON_ANY)
+    }
+
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver{_, event ->
+            state = event
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
+    return state
 }

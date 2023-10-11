@@ -6,4 +6,5 @@ data class ArticleListEntry(
     val author: String,
     val articleUrl: String,
     val articleUri: String,
+    val articleImage: String
 )
