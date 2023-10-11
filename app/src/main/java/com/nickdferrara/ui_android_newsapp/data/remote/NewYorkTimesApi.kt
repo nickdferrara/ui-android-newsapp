@@ -9,6 +9,6 @@ interface NewYorkTimesApi {
     suspend fun getArticleList(): ArticleList
 
     companion object {
-        const val API_KEY = "*"
+        const val API_KEY = "tCgEkpP6jlNOs6OmyAusCM8c9muDeR6g"
     }
 }

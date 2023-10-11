@@ -8,6 +8,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -57,12 +58,12 @@ fun HomeTopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.app_name),
-                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.displayLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
         },
-        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route != "Home_screen") {
+        navigationIcon = { if (navController.currentBackStackEntryAsState().value?.destination?.route != "home_screen") {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,

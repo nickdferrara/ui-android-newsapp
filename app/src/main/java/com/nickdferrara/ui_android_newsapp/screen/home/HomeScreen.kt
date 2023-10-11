@@ -40,7 +40,6 @@ fun HomeScreen(
     ) {
         LazyColumn() {
             items(articleList) {article ->
-
                 Column(
                     modifier = Modifier
                         .padding(top = 16.dp)
@@ -54,27 +53,19 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = article.articleTitle,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontSize = 26.sp,
-                        textAlign = TextAlign.Start,
-                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.titleLarge,
                         modifier = Modifier
                             .padding(start = 10.dp, end = 10.dp)
                     )
-
                     Spacer(modifier = Modifier.height(8.dp))
-
                     Text(
                         text = article.articleSubTitle,
-                        color = Color.Gray,
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Start,
-                        fontWeight = FontWeight.Normal,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier
                             .padding(start = 10.dp, end = 10.dp)
 
                     )
-
                     Spacer(modifier = Modifier.height(20.dp))
 
 //                    SubcomposeAsyncImage(
@@ -83,10 +74,8 @@ fun HomeScreen(
 //                            .crossfade(true)
 //                            .build(),
 //                        contentDescription = "${article.articleImage} image",
-//                        modifier = Modifier
-//
+//                        modifier = Modifier//
 //                    )
-
                     Spacer(modifier = Modifier.height(20.dp))
                 }
             }
