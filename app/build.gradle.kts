@@ -90,6 +90,9 @@ dependencies {
 
     // Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    // Pull to Refresh
+    implementation("androidx.compose.material:material:1.4.0-beta01")
 }
 
 kapt {

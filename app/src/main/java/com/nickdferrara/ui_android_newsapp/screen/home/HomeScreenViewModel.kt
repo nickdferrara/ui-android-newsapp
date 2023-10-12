@@ -25,6 +25,7 @@ class HomeScreenViewModel @Inject constructor(
 ): ViewModel() {
 
     var articleList = mutableStateOf<List<ArticleListEntry>>(listOf())
+    var isRefreshing = mutableStateOf(false)
 
     init {
         loadTopStories()
@@ -32,7 +33,6 @@ class HomeScreenViewModel @Inject constructor(
 
     fun loadTopStories() {
         viewModelScope.launch {
-
             when(val result = repository.getArticleList()) {
                 is Resource.Success -> {
                     val articles = result.data!!.results.map { entry ->
@@ -48,14 +48,17 @@ class HomeScreenViewModel @Inject constructor(
                     articleList.value += articles
                 }
 
-                is Resource.Error -> {}
+                is Resource.Error -> {
+                }
                 is Resource.Loading -> {}
             }
         }
     }
 
     fun refreshTopStories() {
+        isRefreshing.value = true
         loadTopStories()
+        isRefreshing.value = false
     }
 
 }
